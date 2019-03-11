@@ -5,7 +5,8 @@ const TODOS_KEY = 'todos';
 
 export default {
     query,
-    getItemById
+    getItemById,
+    removeItem
 }
 
 function query() {
@@ -40,4 +41,10 @@ function _createItem(txt, importance) {
 function getItemById(items, itemId) {
     var item = items.find(item => itemId === item._id);
     return item;
+}
+
+function removeItem(items, itemId) {
+    const idx = items.findIndex(item => item._id === itemId);
+    items.splice(idx, 1);
+    StorageService.saveToStorage(TODOS_KEY, items);
 }

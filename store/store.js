@@ -14,16 +14,15 @@ const store = new Vuex.Store({
     mutations: {
         setCurrItem(state, itemId) {
             state.currItem = ItemService.getItemById(state.todoItems, itemId);
-        }
+        },
+        removeItem(state, itemId) {
+            ItemService.removeItem(state.todoItems, itemId);
+        },
         // changeCount(state, diff) {
         //     state.count += diff;
         // },
         // addToCart(state, item) {
         //     state.cartItems.push(item)
-        // },
-        // removeFromCart(state, itemId) {
-        //     const idx  = state.cartItems.findIndex(item => item._id === itemId);
-        //     state.cartItems.splice(idx, 1);
         // },
         // toggleCart(state) {
         //     state.isCartOpen = !state.isCartOpen

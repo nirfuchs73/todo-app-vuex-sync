@@ -38,10 +38,10 @@ export default {
         // }
     },
     methods: {
-        deleteBug(todo) {
+        deleteTodo(todo) {
             this.$emit('delete', todo._id);
         },
-        editBug(todo) {
+        editTodo(todo) {
             this.$emit('edit', todo._id);
         },
     },
