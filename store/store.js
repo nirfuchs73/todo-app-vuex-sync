@@ -9,8 +9,8 @@ const store = new Vuex.Store({
             text: '',
             type: 'All'
         },
-        User: {
-            fullName: 'Nir',
+        user: {
+            fullName: 'Puki Ben David',
             activities: [
                 { txt: 'Added a Todo', at: 1523873242735 }
             ]
@@ -34,8 +34,8 @@ const store = new Vuex.Store({
         updateItem(state, item) {
             ItemService.updateItem(state.todoItems, item);
         },
-        toggleCurrItemDone(state) {
-            state.currItem.isDone = !state.currItem.isDone;
+        toggleDone(state, item) {
+            ItemService.toggleDone(state.todoItems, item);
         },
         setfilterBy(state, filterBy) {
             state.filterBy = filterBy;
@@ -59,6 +59,10 @@ const store = new Vuex.Store({
                 todoList = todoList.filter(item => item.isDone);
             }
             return todoList;
+        },
+        doneTodosPercent(state) {
+            var doneTodos = state.todoItems.filter(item => item.isDone);
+            return doneTodos.length / state.todoItems.length;
         }
         // cartTotal(state) {
         //     return state.cartItems.reduce((acc, item)=>acc + item.price, 0)

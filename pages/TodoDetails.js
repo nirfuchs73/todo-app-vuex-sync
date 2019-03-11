@@ -35,7 +35,7 @@ export default {
             return moment(this.todo.createdAt).format('MMMM Do YYYY, h:mm:ss a');
         },
         todo() {
-            return this.$store.getters.currItem;
+            return this.$store.state.currItem;
         }
     }
 

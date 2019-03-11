@@ -18,7 +18,6 @@ export default {
                     <button type="submit">Save</button>
                 </div>
             </form>
-            <!-- {{bug}} -->
         </section>  
 
     `,
@@ -31,22 +30,15 @@ export default {
         var todoId = this.$route.params.todoId;
         this.$store.commit('setCurrItem', todoId);
         // console.log(todoId);
-
     },
     mounted() {
 
     },
     methods: {
         saveTodo() {
-            console.log("Saving bug..", this.todo);
+            console.log("Saving todo..", this.todo);
             this.$store.commit('updateItem', this.todo);
             this.$router.push('/todo');
-
-            // bugService.updateBug(this.bug)
-            //     .then(savedBug => {
-            //         console.log("Saved Bug", savedBug);
-            //         this.$router.push('/bug');
-            //     });
         }
 
     },

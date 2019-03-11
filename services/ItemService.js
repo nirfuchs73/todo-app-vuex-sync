@@ -8,7 +8,8 @@ export default {
     getItemById,
     removeItem,
     addItem,
-    updateItem
+    updateItem,
+    toggleDone
 }
 
 function query() {
@@ -59,5 +60,10 @@ function addItem(items, item) {
 function updateItem(items, item) {
     const Idx = items.findIndex(currItem => currItem._id === item._id);
     items.splice(Idx, 1, item);
+    StorageService.saveToStorage(TODOS_KEY, items);
+}
+
+function toggleDone(items, item) {
+    item.isDone = !item.isDone;
     StorageService.saveToStorage(TODOS_KEY, items);
 }

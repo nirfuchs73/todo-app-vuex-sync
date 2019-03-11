@@ -17,7 +17,7 @@ export default {
                     <div class="todo-list-buttons flex">
                         <button v-on:click.stop.prevent="deleteTodo(currTodo)">Delete</button>
                         <button v-on:click.stop.prevent="editTodo(currTodo)">Edit</button>
-                        <button v-on:click.stop.prevent="doneTodo(currTodo)">Done</button>
+                        <button v-on:click.stop.prevent="toggleDone(currTodo)">Done</button>
                     </div>
             </router-link>
         </section>
@@ -45,8 +45,8 @@ export default {
         editTodo(todo) {
             this.$emit('edit', todo._id);
         },
-        doneTodo(todo) {
-            this.$emit('done', todo._id);
+        toggleDone(todo) {
+            this.$emit('toggle-done', todo);
         },
     },
     components: {

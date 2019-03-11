@@ -8,14 +8,14 @@ Vue.use(VueRouter);
 const myRouter = new VueRouter({ routes: myRoutes })
 import myStore from './store/store.js'
 
-// import AppHeader from './cmps/AppHeader.js'
+import AppHeader from './cmps/AppHeader.js';
 // import AppFooter from './cmps/AppFooter.js'
 
 
 new Vue({
     template: `
         <section>
-            <!-- <app-header></app-header> -->
+            <app-header></app-header>
             <router-view></router-view>
             <!-- <app-footer></app-footer> -->
         </section>
@@ -24,7 +24,7 @@ new Vue({
         console.log('Vue App was created!!!');
     },
     components: {
-        // AppHeader,
+        AppHeader,
         // AppFooter
     },
     
