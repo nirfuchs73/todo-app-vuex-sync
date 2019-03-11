@@ -6,7 +6,7 @@ import TodoDetails from './pages/TodoDetails.js';
 const routes = [
     // { path: '/', component: HomePage },
     { path: '/todo', component: TodoApp },
-    // { path: '/todo/edit/:todoId?', component: TodoEdit },
+    { path: '/todo/edit/:todoId?', component: TodoEdit },
     { path: '/todo/:todoId', component: TodoDetails }
 ];
 

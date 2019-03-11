@@ -7,7 +7,8 @@ export default {
     query,
     getItemById,
     removeItem,
-    addItem
+    addItem,
+    updateItem
 }
 
 function query() {
@@ -50,7 +51,13 @@ function removeItem(items, itemId) {
     StorageService.saveToStorage(TODOS_KEY, items);
 }
 
-function addItem(items, txt, importance) {
-    items.push(_createItem(txt, importance));
+function addItem(items, item) {
+    items.push(_createItem(item.txt, item.importance));
+    StorageService.saveToStorage(TODOS_KEY, items);
+}
+
+function updateItem(items, item) {
+    const Idx = items.findIndex(currItem => currItem._id === item._id);
+    items.splice(Idx, 1, item);
     StorageService.saveToStorage(TODOS_KEY, items);
 }

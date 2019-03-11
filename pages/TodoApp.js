@@ -6,60 +6,44 @@ export default {
     template: `
         <section class="todo-app todo-wrapper">
             <h1>Todo App</h1>
-            <todo-filter class="todo-app-header-item" v-on:filtered="setFilter"></todo-filter>
+            <todo-filter class="todo-app-header-item"></todo-filter>
             <todo-list v-bind:todos="todoItems" v-on:delete="deleteTodo" v-on:edit="editTodo" v-on:done="doneTodo"></todo-list>
             <button v-on:click="addTodo">Add Todo</button>
         </section>
     `,
     data() {
         return {
-            filterBy: {
-                text: '',
-                type: ''
-            },
+
         }
     },
     computed: {
         todoItems() {
-            if (this.filterBy.text === '' && this.filterBy.type === 'All') {
-                return this.$store.state.todoItems;
-            } else {
-                this.$store.commit('setfilterBy', { ...this.filterBy });
-                return this.$store.getters.filterTodoItems;
-            }
-        }
+            return this.$store.getters.filterTodoItems;
+        },
     },
     methods: {
-        // addToCart(item) {
-        //     this.$store.commit('addToCart', item)
-        // }
         deleteTodo(itemId) {
             console.log('deleteTodo');
             this.$store.commit('removeItem', itemId);
         },
-        editTodo() {
+        editTodo(itemId) {
             console.log('editTodo');
+            this.$router.push('/todo/edit/' + itemId);
         },
         addTodo() {
             console.log('addTodo');
             var txt = prompt('Todo:');
-            var importance = prompt('Importance:');
-            this.$store.commit('addItem', txt, importance);
+            var importance = +prompt('Importance:');
+            this.$store.commit('addItem', { txt: txt, importance: importance });
         },
         doneTodo(itemId) {
             console.log('doneTodo');
             this.$store.commit('setCurrItem', itemId);
             this.$store.commit('toggleCurrItemDone');
         },
-        setFilter(filterBy) {
-            // console.log('EmailApp Got Filter: ', filterBy);
-            this.filterBy = filterBy;
-        },
     },
     components: {
         TodoList,
-        // bookDetails,
         TodoFilter,
-        // bookAdd
     }
 }

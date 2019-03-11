@@ -7,7 +7,7 @@ export default {
     props: ['todo'],
     template: `
         <div class="todo-preview flex">
-            <div v-bind:class="classObject">{{todo.txt}} {{todo.importance}}</div>
+            <div v-bind:class="classObject">{{todo.txt}} ({{todo.importance}})</div>
         </div>
     `,
     created() {

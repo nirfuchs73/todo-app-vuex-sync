@@ -7,8 +7,15 @@ const store = new Vuex.Store({
         currItem: null,
         filterBy: {
             text: '',
-            type: ''
+            type: 'All'
         },
+        User: {
+            fullName: 'Nir',
+            activities: [
+                { txt: 'Added a Todo', at: 1523873242735 }
+            ]
+        }
+
 
         //    count: 7988787,
         //    cartItems: [],
@@ -21,9 +28,11 @@ const store = new Vuex.Store({
         removeItem(state, itemId) {
             ItemService.removeItem(state.todoItems, itemId);
         },
-        addItem(state, txt, importance) {
-            ItemService.addItem(state.todoItems, txt, importance);
-            // state.currItem.push(item);
+        addItem(state, item) {
+            ItemService.addItem(state.todoItems, item);
+        },
+        updateItem(state, item) {
+            ItemService.updateItem(state.todoItems, item);
         },
         toggleCurrItemDone(state) {
             state.currItem.isDone = !state.currItem.isDone;
@@ -39,9 +48,6 @@ const store = new Vuex.Store({
         // }
     },
     getters: {
-        currItem(state) {
-            return state.currItem;
-        },
         filterTodoItems(state) {
             var todoList = state.todoItems.filter(item => {
                 return item.txt.toLowerCase().includes(state.filterBy.text.toLowerCase());
