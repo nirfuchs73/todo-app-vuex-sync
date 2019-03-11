@@ -5,7 +5,10 @@ const store = new Vuex.Store({
     state: {
         todoItems: ItemService.query(),
         currItem: null,
-        filterBy: '',
+        filterBy: {
+            text: '',
+            type: ''
+        },
 
         //    count: 7988787,
         //    cartItems: [],
@@ -22,6 +25,12 @@ const store = new Vuex.Store({
             ItemService.addItem(state.todoItems, txt, importance);
             // state.currItem.push(item);
         },
+        toggleCurrItemDone(state) {
+            state.currItem.isDone = !state.currItem.isDone;
+        },
+        setfilterBy(state, filterBy) {
+            state.filterBy = filterBy;
+        }
         // changeCount(state, diff) {
         //     state.count += diff;
         // },
@@ -32,6 +41,18 @@ const store = new Vuex.Store({
     getters: {
         currItem(state) {
             return state.currItem;
+        },
+        filterTodoItems(state) {
+            var todoList = state.todoItems.filter(item => {
+                return item.txt.toLowerCase().includes(state.filterBy.text.toLowerCase());
+            });
+            if (state.filterBy.type === 'Active') {
+                todoList = todoList.filter(item => !item.isDone);
+            }
+            if (state.filterBy.type === 'Done') {
+                todoList = todoList.filter(item => item.isDone);
+            }
+            return todoList;
         }
         // cartTotal(state) {
         //     return state.cartItems.reduce((acc, item)=>acc + item.price, 0)

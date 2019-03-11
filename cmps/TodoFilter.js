@@ -1,39 +1,33 @@
-import UserMsg from './UserMsg.js'
-import ShoppingCart from './ShoppingCart.js'
-
-
 export default {
     template: `
-    <header>
-        <nav>
-            <h1 class="main-title">App App</h1> 
-            <router-link to="/shop">Go Shopping</router-link>
-        </nav>
-        <button v-if="cartItemsCount" @click="toggleCart" >Your Cart {{cartItemsCount}}</button>
-        <shopping-cart v-if="isCartOpen"></shopping-cart>
-        <user-msg></user-msg>
-    </header>
+        <section class="email-filter">
+            <input type="text" placeholder="Search" v-on:keyup.enter="emitFilter" v-model="filterBy.text" />
+            <select v-model="filterBy.type" v-on:change="emitFilter">
+                <option value="All" selected>All</option>
+                <option value="Active">Active</option>
+                <option value="Done">Done</option>
+            </select>
+            <!-- <button v-on:click="emitFilter">Filter</button> -->
+            <!-- <button v-on:click="clearFilter">Clear Filter</button> -->
+        </section>
     `,
-    created() { },
     data() {
         return {
-        }
-    },
-    computed: {
-        cartItemsCount() {
-            return this.$store.getters.cartItemsCount
-        },
-        isCartOpen() {
-            return this.$store.state.isCartOpen
+            filterBy: {
+                text: '',
+                type: 'All'
+            }
         }
     },
     methods: {
-        toggleCart() {
-            this.$store.commit('toggleCart')
+        emitFilter() {
+            // console.log('Emitting to Parent');
+            this.$emit('filtered', { ...this.filterBy });
+        },
+        clearFilter() {
+            this.filterBy.text = '';
+            this.filterBy.type = 'All';
+            this.$emit('filtered', { ...this.filterBy });
         }
-    },
-    components: {
-        UserMsg,
-        ShoppingCart
-    },
+    }
 }

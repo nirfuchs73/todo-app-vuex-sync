@@ -5,6 +5,7 @@ footer {
     /* width: 100%; */
     /* font-weight: bold; */
 }
+
 .flex {
     display: flex;
 }
@@ -31,9 +32,19 @@ footer {
     border: 1px solid black;
     border-top-style: none;
 }
+
 .todo-list-preview {
     margin: 8px;
 }
 
-.todo-edit{
+.todo-edit {
     flex-direction: column;
+}
+
+.done {
+    text-decoration: line-through;
+}
+
+.un-done {
+    text-decoration: none;
+}

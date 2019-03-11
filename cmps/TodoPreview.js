@@ -7,7 +7,7 @@ export default {
     props: ['todo'],
     template: `
         <div class="todo-preview flex">
-            <div>{{todo.txt}} {{todo.importance}}</div>
+            <div v-bind:class="classObject">{{todo.txt}} {{todo.importance}}</div>
         </div>
     `,
     created() {
@@ -19,12 +19,17 @@ export default {
         }
     },
     computed: {
-        
+        classObject() {
+            return {
+                'done': this.todo.isDone,
+                'un-done': !this.todo.isDone
+            }
+        }
     },
     methods: {
-        
+
     },
     components: {
-        
+
     },
 }
