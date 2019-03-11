@@ -18,11 +18,12 @@ const store = new Vuex.Store({
         removeItem(state, itemId) {
             ItemService.removeItem(state.todoItems, itemId);
         },
+        addItem(state, txt, importance) {
+            ItemService.addItem(state.todoItems, txt, importance);
+            // state.currItem.push(item);
+        },
         // changeCount(state, diff) {
         //     state.count += diff;
-        // },
-        // addToCart(state, item) {
-        //     state.cartItems.push(item)
         // },
         // toggleCart(state) {
         //     state.isCartOpen = !state.isCartOpen

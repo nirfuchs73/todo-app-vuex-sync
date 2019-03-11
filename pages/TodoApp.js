@@ -4,9 +4,9 @@ export default {
     name: 'TodoApp',
     template: `
         <section class="todo-app todo-wrapper">
-            <h1>TodoApp</h1>
+            <h1>Todo App</h1>
             <todo-list v-bind:todos="todoItems" v-on:delete="deleteTodo" v-on:edit="editTodo"></todo-list>
-            <button>Add Todo</button>
+            <button v-on:click="addTodo">Add Todo</button>
         </section>
     `,
     computed: {
@@ -24,6 +24,12 @@ export default {
         },
         editTodo() {
             console.log('editTodo');
+        },
+        addTodo() {
+            console.log('addTodo');
+            var txt = prompt('Todo:');
+            var importance = prompt('Importance:');
+            this.$store.commit('addItem', txt, importance);
         }
     },
     components: {

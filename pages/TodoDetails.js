@@ -4,8 +4,7 @@ export default {
     name: 'TodoDetails',
     template: `
         <section v-if="todo">
-            <h1>Bug Details</h1>
-            <!-- {{todo}} -->
+            <h1>Todo Details</h1>
             <div>Id: {{todo._id}}</div>
             <div>Text: {{todo.txt}}</div>
             <div>Is Done: {{todo.isDone}}</div>
@@ -16,7 +15,6 @@ export default {
     `,
     data() {
         return {
-            todo: null
 
         }
     },
@@ -24,8 +22,7 @@ export default {
         var todoId = this.$route.params.todoId;
         this.$store.commit('setCurrItem', todoId);
         // console.log(todoId);
-        this.todo = this.$store.getters.currItem;
-        // console.log(this.todo);
+
     },
     mounted() {
 
@@ -36,6 +33,9 @@ export default {
     computed: {
         formattedDate() {
             return moment(this.todo.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        },
+        todo() {
+            return this.$store.getters.currItem;
         }
     }
 
