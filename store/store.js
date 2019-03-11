@@ -4,13 +4,17 @@ const store = new Vuex.Store({
     strict: true,
     state: {
         todoItems: ItemService.query(),
-        filterBy:'',
-        
+        currItem: null,
+        filterBy: '',
+
         //    count: 7988787,
         //    cartItems: [],
         //    isCartOpen: false
     },
     mutations: {
+        setCurrItem(state, itemId) {
+            state.currItem = ItemService.getItemById(state.todoItems, itemId);
+        }
         // changeCount(state, diff) {
         //     state.count += diff;
         // },
@@ -26,6 +30,9 @@ const store = new Vuex.Store({
         // }
     },
     getters: {
+        currItem(state) {
+            return state.currItem;
+        }
         // cartTotal(state) {
         //     return state.cartItems.reduce((acc, item)=>acc + item.price, 0)
         // },

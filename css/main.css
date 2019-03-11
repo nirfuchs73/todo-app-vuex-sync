@@ -1,0 +1,39 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    /* width: 100%; */
+    /* font-weight: bold; */
+}
+.flex {
+    display: flex;
+}
+
+.todo-wrapper {
+    /* max-width: 100%; */
+    /* padding: 0 0px; */
+    /* margin: 0 auto; */
+    max-width: 1000px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.todo-list {
+    flex-direction: column;
+}
+
+.todo-list-row:first-child {
+    border: 1px solid black;
+}
+
+.todo-list-row {
+    justify-content: space-between;
+    border: 1px solid black;
+    border-top-style: none;
+}
+.todo-list-preview {
+    margin: 8px;
+}
+
+.todo-edit{
+    flex-direction: column;

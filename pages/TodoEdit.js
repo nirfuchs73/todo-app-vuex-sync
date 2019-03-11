@@ -1,4 +1,4 @@
-import EventBusService, { SHOW_MSG } from '../services/EventBusService.js'
+// import EventBusService, { SHOW_MSG } from '../services/EventBusService.js'
 
 export default {
     template: `
@@ -17,23 +17,23 @@ export default {
         }
     },
     mounted() {
-        console.log('STORE', this.$store);
-        EventBusService.$emit(SHOW_MSG, { txt: 'HomePage Loaded!', type: 'success' });
+        // console.log('STORE', this.$store);
+        // EventBusService.$emit(SHOW_MSG, { txt: 'HomePage Loaded!', type: 'success' });
     },
     methods: {
-        changeCount(diff) {
-            this.$store.commit('changeCount', diff)
-            // this.$store.commit({type: 'changeCount', diff:diff})
-        }
+        // changeCount(diff) {
+        //     this.$store.commit('changeCount', diff)
+        //     // this.$store.commit({type: 'changeCount', diff:diff})
+        // }
     },
     computed: {
-        count() {
-            return this.$store.getters.countForDisplay
-        },
-        user() {
-            return this.$store.state.user
+        // count() {
+        //     return this.$store.getters.countForDisplay
+        // },
+        // user() {
+        //     return this.$store.state.user
 
-        }
+        // }
     }
 
 }

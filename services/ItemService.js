@@ -4,7 +4,8 @@ const TODOS_KEY = 'todos';
 
 
 export default {
-    query
+    query,
+    getItemById
 }
 
 function query() {
@@ -34,4 +35,9 @@ function _createItem(txt, importance) {
         createdAt: Date.now(),
         importance: importance
     }
+}
+
+function getItemById(items, itemId) {
+    var item = items.find(item => itemId === item._id);
+    return item;
 }

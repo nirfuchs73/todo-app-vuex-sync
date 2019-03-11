@@ -1,39 +1,52 @@
-import UserMsg from './UserMsg.js'
-import ShoppingCart from './ShoppingCart.js'
-
+// import UserMsg from './UserMsg.js'
+// import ShoppingCart from './ShoppingCart.js'
+import TodoPreview from './TodoPreview.js';
 
 export default {
+    name: 'TodoList',
+    props: ['todos'],
     template: `
-    <header>
-        <nav>
-            <h1 class="main-title">App App</h1> 
-            <router-link to="/shop">Go Shopping</router-link>
-        </nav>
-        <button v-if="cartItemsCount" @click="toggleCart" >Your Cart {{cartItemsCount}}</button>
-        <shopping-cart v-if="isCartOpen"></shopping-cart>
-        <user-msg></user-msg>
-    </header>
+        <!-- <ul class="todo-list">
+            <li v-for="todo in todos">
+                <h3>{{todo.txt}} {{todo.importance}}</h3>
+            </li>
+        </ul> -->
+        <section class="todo-list flex">
+            <router-link class="todo-list-row flex" v-for="(currTodo, idx) in todos" :key="currTodo._id" :to="'/todo/' + currTodo._id">
+                <todo-preview class="todo-list-preview" v-bind:todo="currTodo"></todo-preview>
+                    <div class="todo-list-buttons flex">
+                        <button v-on:click.stop.prevent="deleteTodo(currTodo)">Delete</button>
+                        <button v-on:click.stop.prevent="editTodo(currTodo)">Edit</button>
+                    </div>
+            </router-link>
+        </section>
     `,
-    created() { },
+    created() {
+
+    },
     data() {
         return {
+
         }
     },
     computed: {
-        cartItemsCount() {
-            return this.$store.getters.cartItemsCount
-        },
-        isCartOpen() {
-            return this.$store.state.isCartOpen
-        }
+        // cartItemsCount() {
+        //     return this.$store.getters.cartItemsCount
+        // },
+        // isCartOpen() {
+        //     return this.$store.state.isCartOpen
+        // }
     },
     methods: {
-        toggleCart() {
-            this.$store.commit('toggleCart')
-        }
+        deleteBug(todo) {
+            this.$emit('delete', todo._id);
+        },
+        editBug(todo) {
+            this.$emit('edit', todo._id);
+        },
     },
     components: {
-        UserMsg,
-        ShoppingCart
+        TodoPreview
+        // ShoppingCart
     },
 }

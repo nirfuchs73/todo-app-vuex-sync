@@ -1,38 +1,41 @@
-import EventBusService, { SHOW_MSG } from '../services/EventBusService.js'
+
 
 export default {
+    name: 'TodoDetails',
     template: `
-        <section>
-            <section>
-                <button @click="changeCount(1)">+</button>
-                {{count}}
-                <button @click="changeCount(-1)">-</button>
-            </section>
-            <img src="img/logo.png"/>
-        </section>
-    
+        <section v-if="todo">
+            <h1>Bug Details</h1>
+            <!-- {{todo}} -->
+            <div>Id: {{todo._id}}</div>
+            <div>Text: {{todo.txt}}</div>
+            <div>Is Done: {{todo.isDone}}</div>
+            <div>Created at: {{formattedDate}}</div>
+            <div>Importance: {{todo.importance}}</div>
+        </section>  
+
     `,
     data() {
         return {
+            todo: null
+
         }
+    },
+    created() {
+        var todoId = this.$route.params.todoId;
+        this.$store.commit('setCurrItem', todoId);
+        // console.log(todoId);
+        this.todo = this.$store.getters.currItem;
+        // console.log(this.todo);
     },
     mounted() {
-        console.log('STORE', this.$store);
-        EventBusService.$emit(SHOW_MSG, { txt: 'HomePage Loaded!', type: 'success' });
+
     },
     methods: {
-        changeCount(diff) {
-            this.$store.commit('changeCount', diff)
-            // this.$store.commit({type: 'changeCount', diff:diff})
-        }
+
     },
     computed: {
-        count() {
-            return this.$store.getters.countForDisplay
-        },
-        user() {
-            return this.$store.state.user
-
+        formattedDate() {
+            return moment(this.todo.createdAt).format('MMMM Do YYYY, h:mm:ss a');
         }
     }
 
