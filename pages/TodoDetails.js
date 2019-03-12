@@ -5,7 +5,7 @@ export default {
     template: `
         <section v-if="todo">
             <h1>Todo Details</h1>
-            <div>Id: {{todo._id}}</div>
+            <div>Id: {{todo.id}}</div>
             <div>Text: {{todo.txt}}</div>
             <div>Is Done: {{todo.isDone}}</div>
             <div>Created at: {{formattedDate}}</div>
@@ -19,8 +19,9 @@ export default {
         }
     },
     created() {
-        var todoId = this.$route.params.todoId;
-        this.$store.commit('setCurrItem', todoId);
+        var itemId = this.$route.params.todoId;
+        // this.$store.commit('setCurrItem', todoId);
+        this.$store.dispatch({ type: 'loadTodoItem', itemId });
         // console.log(todoId);
 
     },

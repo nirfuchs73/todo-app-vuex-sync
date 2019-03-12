@@ -31,7 +31,12 @@ export default {
     methods: {
         deleteTodo(itemId) {
             console.log('deleteTodo');
-            this.$store.commit('removeItem', itemId);
+            // this.$store.commit('removeItem', itemId);
+            // console.log('Removing', this.shopItem);
+            this.$store.dispatch({ type: 'removeItem', itemId: itemId })
+                .then(() => {
+                    // this.$router.push('/shop')
+                })
         },
         editTodo(itemId) {
             console.log('editTodo');
@@ -45,7 +50,16 @@ export default {
             console.log('addTodo');
             var txt = prompt('Todo:');
             var importance = +prompt('Importance:');
-            this.$store.commit('addItem', { txt: txt, importance: importance });
+            var item = this.$store.getters.emptyTodoItem;
+            item.txt = txt;
+            item.importance = importance;
+            // this.$store.commit('addItem', { item });
+            console.log('Saving ITEM', item);
+            this.$store.dispatch({ type: 'addItem', item: item })
+                .then((res) => {
+                    console.log(res);
+                    // this.$router.push('/shop')
+                });
         },
     },
     components: {

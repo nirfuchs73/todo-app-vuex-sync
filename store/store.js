@@ -26,17 +26,31 @@ const store = new Vuex.Store({
         setTodoItems(state, payload) {
             state.todoItems = payload.todoItems;
         },
-        setCurrItem(state, itemId) {
-            state.currItem = ItemService.getItemById(state.todoItems, itemId);
+        setTodoItem(state, { todoItem }) {
+            state.currItem = todoItem;
         },
-        removeItem(state, itemId) {
-            ItemService.removeItem(state.todoItems, itemId);
+        // setCurrItem(state, itemId) {
+        //     state.currItem = ItemService.getItemById(state.todoItems, itemId);
+        // },
+        // removeItem(state, itemId) {
+        //     ItemService.removeItem(state.todoItems, itemId);
+        // },
+        removeItem(state, { itemId }) {
+            const idx = state.todoItems.findIndex(item => item.id === itemId);
+            state.todoItems.splice(idx, 1);
         },
-        addItem(state, item) {
-            ItemService.addItem(state.todoItems, item);
+        // addItem(state, item) {
+        //     ItemService.addItem(state.todoItems, item);
+        // },
+        // updateItem(state, item) {
+        //     ItemService.updateItem(state.todoItems, item);
+        // },
+        addItem(state, { item }) {
+            state.todoItems.unshift(item);
         },
-        updateItem(state, item) {
-            ItemService.updateItem(state.todoItems, item);
+        updateItem(state, { item }) {
+            const idx = state.todoItems.findIndex(currItem => currItem.id === item.id);
+            state.todoItems.splice(idx, 1, item);
         },
         toggleDone(state, item) {
             ItemService.toggleDone(state.todoItems, item);
@@ -67,6 +81,9 @@ const store = new Vuex.Store({
         doneTodosPercent(state) {
             var doneTodos = state.todoItems.filter(item => item.isDone);
             return Math.floor((doneTodos.length / state.todoItems.length) * 100);
+        },
+        emptyTodoItem(state) {
+            return ItemService.getEmpty();
         }
         // cartTotal(state) {
         //     return state.cartItems.reduce((acc, item)=>acc + item.price, 0)
@@ -80,7 +97,7 @@ const store = new Vuex.Store({
     },
     actions: {
         loadTodoItems(context) {
-            console.log('CONTEXT', context);
+            // console.log('CONTEXT', context);
             // context.commit({ type: 'setIsShopLoading', isLoading: true })
             return ItemService.query()
                 .then(todoItems => {
@@ -88,6 +105,43 @@ const store = new Vuex.Store({
                 })
                 .finally(() => {
                     // context.commit({ type: 'setIsShopLoading', isLoading: false })
+                })
+        },
+        loadTodoItem(context, { itemId }) {
+            // console.log('CONTEXT', context);
+            ItemService.getItemById(itemId)
+                .then(todoItem => {
+                    context.commit({ type: 'setTodoItem', todoItem })
+                })
+        },
+        removeItem(context, { itemId }) {
+            console.log('CONTEXT', context);
+            return ItemService.removeItem(itemId)
+                .then(() => {
+                    context.commit({ type: 'removeItem', itemId })
+                })
+        },
+        // saveItem(context, { item }) {
+        //     console.log('STORE - ITEM IS:', item);
+        //     const isEdit = !!item.id;
+        //     return ItemService.saveItem(item)
+        //         .then((savedItem) => {
+        //             if (isEdit) context.commit({ type: 'updateItem', item: savedItem })
+        //             else context.commit({ type: 'addItem', item: savedItem })
+        //         })
+        // },
+        addItem(context, { item }) {
+            console.log(item);
+            return ItemService.addItem(item)
+                .then((savedItem) => {
+                    context.commit({ type: 'addItem', item: savedItem });
+                })
+        },
+        updateItem(context, { item }) {
+            console.log(item);
+            return ItemService.updateItem(item)
+                .then((savedItem) => {
+                    context.commit({ type: 'updateItem', item: savedItem });
                 })
         },
     }

@@ -12,7 +12,7 @@ export default {
             </li>
         </ul> -->
         <section class="todo-list flex">
-            <router-link class="todo-list-row flex" v-for="(currTodo, idx) in todos" :key="currTodo._id" :to="'/todo/' + currTodo._id">
+            <router-link class="todo-list-row flex" v-for="(currTodo, idx) in todos" :key="currTodo.id" :to="'/todo/' + currTodo.id">
                 <todo-preview class="todo-list-preview" v-bind:todo="currTodo"></todo-preview>
                     <div class="todo-list-buttons flex">
                         <button v-on:click.stop.prevent="deleteTodo(currTodo)">Delete</button>
@@ -40,10 +40,10 @@ export default {
     },
     methods: {
         deleteTodo(todo) {
-            this.$emit('delete', todo._id);
+            this.$emit('delete', todo.id);
         },
         editTodo(todo) {
-            this.$emit('edit', todo._id);
+            this.$emit('edit', todo.id);
         },
         toggleDone(todo) {
             this.$emit('toggle-done', todo);
