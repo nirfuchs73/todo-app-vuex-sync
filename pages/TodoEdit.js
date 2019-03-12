@@ -9,7 +9,7 @@ export default {
                 <label>Text:</label>
                 <input type="text" v-model="todo.txt" />
                 <label>Importance:</label>
-                <input type="text" v-model="todo.importance" />
+                <input type="number" min="1" max="3" v-model.number="todo.importance" />
                 <button type="submit">Save</button>
             </form>
         </section>  

@@ -15,6 +15,8 @@ import AppHeader from './cmps/AppHeader.js';
 new Vue({
     template: `
         <section>
+            <router-link to="/">Home</router-link>
+            <router-link to="/todo">Todo</router-link>
             <app-header></app-header>
             <router-view></router-view>
             <!-- <app-footer></app-footer> -->

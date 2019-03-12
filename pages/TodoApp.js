@@ -16,6 +16,13 @@ export default {
 
         }
     },
+    created() {
+        this.$store.dispatch({ type: 'loadTodoItems' })
+            .catch(err => {
+                // EventBusService.$emit(SHOW_MSG, { txt: 'Cannot Load shop, try refreshing', type: 'danger' });
+                console.log(err);
+            });
+    },
     computed: {
         todoItems() {
             return this.$store.getters.filterTodoItems;

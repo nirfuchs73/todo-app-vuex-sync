@@ -3,7 +3,8 @@ import ItemService from '../services/ItemService.js'
 const store = new Vuex.Store({
     strict: true,
     state: {
-        todoItems: ItemService.query(),
+        // todoItems: ItemService.query(),
+        todoItems: [],
         currItem: null,
         filterBy: {
             text: '',
@@ -22,6 +23,9 @@ const store = new Vuex.Store({
         //    isCartOpen: false
     },
     mutations: {
+        setTodoItems(state, payload) {
+            state.todoItems = payload.todoItems;
+        },
         setCurrItem(state, itemId) {
             state.currItem = ItemService.getItemById(state.todoItems, itemId);
         },
@@ -73,6 +77,19 @@ const store = new Vuex.Store({
         // countForDisplay(state, otherGetters) {
         //     return state.count.toLocaleString()
         // }
+    },
+    actions: {
+        loadTodoItems(context) {
+            console.log('CONTEXT', context);
+            // context.commit({ type: 'setIsShopLoading', isLoading: true })
+            return ItemService.query()
+                .then(todoItems => {
+                    context.commit({ type: 'setTodoItems', todoItems })
+                })
+                .finally(() => {
+                    // context.commit({ type: 'setIsShopLoading', isLoading: false })
+                })
+        },
     }
 })
 

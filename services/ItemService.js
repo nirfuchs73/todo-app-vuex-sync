@@ -11,10 +11,21 @@ export default {
     updateItem,
     toggleDone
 }
+var todos = [];
 
 function query() {
-    return _createItems();
+    var api = `http://localhost:3000/todos`;
+    return axios.get(api)
+        .then(res => res.data)
+        .then(loadedTodos => {
+            todos = loadedTodos;
+            // console.log(todos);
+            return todos;
+        });
 }
+// function query() {
+//     return _createItems();
+// }
 
 function _createItems() {
     var items = StorageService.loadFromStorage(TODOS_KEY);
