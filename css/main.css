@@ -39,6 +39,7 @@ footer {
 
 .todo-edit {
     flex-direction: column;
+    width: min-content;
 }
 
 .done {
