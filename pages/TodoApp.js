@@ -1,11 +1,14 @@
 import TodoList from '../cmps/TodoList.js';
 import TodoFilter from '../cmps/TodoFilter.js';
+import EventBusService, { SHOW_MSG } from '../services/EventBusService.js';
 
 export default {
     name: 'TodoApp',
     template: `
         <section class="todo-app todo-wrapper">
             <!-- <h1>Todo App</h1> -->
+            <h1 v-if="isShopLoading">Loading...</h1>
+            <!-- <h1>Loading...</h1> -->
             <todo-filter class="todo-app-header-item"></todo-filter>
             <todo-list v-bind:todos="todoItems" v-on:delete="deleteTodo" v-on:edit="editTodo" v-on:toggle-done="toggleDone"></todo-list>
             <button v-on:click="addTodo">Add Todo</button>
@@ -27,6 +30,9 @@ export default {
         todoItems() {
             return this.$store.getters.filterTodoItems;
         },
+        isShopLoading() {
+            return this.$store.getters.isShopLoading
+        }
     },
     methods: {
         deleteTodo(itemId) {
@@ -36,6 +42,7 @@ export default {
             this.$store.dispatch({ type: 'removeItem', itemId: itemId })
                 .then(() => {
                     // this.$router.push('/shop')
+                    EventBusService.$emit(SHOW_MSG, { txt: 'Todo Deleted!', type: 'success' });
                 })
         },
         editTodo(itemId) {
@@ -51,6 +58,7 @@ export default {
             this.$store.dispatch({ type: 'updateItem', item: todo })
                 .then((res) => {
                     console.log(res);
+                    EventBusService.$emit(SHOW_MSG, { txt: 'Todo Saved!', type: 'success' });
                     // this.$router.push('/shop')
                     // this.$router.push('/todo');
                 });
@@ -67,6 +75,7 @@ export default {
             this.$store.dispatch({ type: 'addItem', item: item })
                 .then((res) => {
                     console.log(res);
+                    EventBusService.$emit(SHOW_MSG, { txt: 'Todo Added!', type: 'success' });
                     // this.$router.push('/shop')
                 });
         },

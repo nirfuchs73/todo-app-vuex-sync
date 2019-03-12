@@ -1,4 +1,4 @@
-
+import EventBusService, { SHOW_MSG } from '../services/EventBusService.js';
 
 export default {
     name: 'TodoEdit',
@@ -38,6 +38,7 @@ export default {
                 .then((res) => {
                     console.log(res);
                     // this.$router.push('/shop')
+                    EventBusService.$emit(SHOW_MSG, { txt: 'Todo Saved!', type: 'success' });
                     this.$router.push('/todo');
                 });
         }

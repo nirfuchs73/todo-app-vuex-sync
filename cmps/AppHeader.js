@@ -1,3 +1,5 @@
+import UserMsg from './UserMsg.js'
+import EventBusService, { SHOW_MSG } from '../services/EventBusService.js';
 export default {
     name: 'AppHeader',
     template: `
@@ -13,6 +15,7 @@ export default {
                 </div>
             </div> -->
         </nav>
+        <user-msg></user-msg>
     </header>
     `,
     created() {
@@ -36,7 +39,11 @@ export default {
     methods: {
 
     },
+    mounted() {
+        // console.log('STORE', this.$store);
+        EventBusService.$emit(SHOW_MSG, { txt: 'HomePage Loaded!', type: 'success' });
+    },
     components: {
-
+        UserMsg
     },
 }
