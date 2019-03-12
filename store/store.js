@@ -62,7 +62,7 @@ const store = new Vuex.Store({
         },
         doneTodosPercent(state) {
             var doneTodos = state.todoItems.filter(item => item.isDone);
-            return doneTodos.length / state.todoItems.length;
+            return Math.floor((doneTodos.length / state.todoItems.length) * 100);
         }
         // cartTotal(state) {
         //     return state.cartItems.reduce((acc, item)=>acc + item.price, 0)
