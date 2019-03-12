@@ -9,7 +9,7 @@ export default {
     removeItem,
     addItem,
     updateItem,
-    toggleDone,
+    // toggleDone,
     getEmpty
 }
 var todos = [];
@@ -104,22 +104,19 @@ function addItem(item) {
 // }
 
 function updateItem(item) {
-    console.log(item.id);
+    // console.log(item.id);
     var api = `http://localhost:3000/todos/${item.id}`;
     return axios.put(api, item)
         .then(res => res.data)
         .then(updatedTodo => {
-            // TODO: bugs.findIndex, and replcae the bug
-            // var bugIdx = bugs.findIndex(updatedBug => currBug.id === bug.id);
-            // bugs.splice(bugIdx, 1, bug);
             return updatedTodo;
         });
 }
 
-function toggleDone(items, item) {
-    item.isDone = !item.isDone;
-    StorageService.saveToStorage(TODOS_KEY, items);
-}
+// function toggleDone(items, item) {
+//     item.isDone = !item.isDone;
+//     StorageService.saveToStorage(TODOS_KEY, items);
+// }
 
 function getEmpty() {
     return {

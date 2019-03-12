@@ -43,8 +43,17 @@ export default {
             this.$router.push('/todo/edit/' + itemId);
         },
         toggleDone(item) {
-            console.log('doneTodo');
-            this.$store.commit('toggleDone', item);
+            console.log('toggleDone');
+            var todo = JSON.parse(JSON.stringify(item));
+            todo.isDone = !todo.isDone;
+            // this.$store.commit('toggleDone', item);
+            // console.log("Saving todo..", todo);
+            this.$store.dispatch({ type: 'updateItem', item: todo })
+                .then((res) => {
+                    console.log(res);
+                    // this.$router.push('/shop')
+                    // this.$router.push('/todo');
+                });
         },
         addTodo() {
             console.log('addTodo');

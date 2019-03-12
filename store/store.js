@@ -52,9 +52,9 @@ const store = new Vuex.Store({
             const idx = state.todoItems.findIndex(currItem => currItem.id === item.id);
             state.todoItems.splice(idx, 1, item);
         },
-        toggleDone(state, item) {
-            ItemService.toggleDone(state.todoItems, item);
-        },
+        // toggleDone(state, item) {
+        //     ItemService.toggleDone(state.todoItems, item);
+        // },
         setfilterBy(state, filterBy) {
             state.filterBy = filterBy;
         }
@@ -115,7 +115,7 @@ const store = new Vuex.Store({
                 })
         },
         removeItem(context, { itemId }) {
-            console.log('CONTEXT', context);
+            // console.log('CONTEXT', context);
             return ItemService.removeItem(itemId)
                 .then(() => {
                     context.commit({ type: 'removeItem', itemId })
@@ -131,14 +131,14 @@ const store = new Vuex.Store({
         //         })
         // },
         addItem(context, { item }) {
-            console.log(item);
+            // console.log(item);
             return ItemService.addItem(item)
                 .then((savedItem) => {
                     context.commit({ type: 'addItem', item: savedItem });
                 })
         },
         updateItem(context, { item }) {
-            console.log(item);
+            // console.log(item);
             return ItemService.updateItem(item)
                 .then((savedItem) => {
                     context.commit({ type: 'updateItem', item: savedItem });
