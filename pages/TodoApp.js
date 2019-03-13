@@ -7,7 +7,7 @@ export default {
     template: `
         <section class="todo-app todo-wrapper">
             <!-- <h1>Todo App</h1> -->
-            <h1 v-if="isShopLoading">Loading...</h1>
+            <h1 v-if="isTodoLoading">Loading...</h1>
             <!-- <h1>Loading...</h1> -->
             <todo-filter class="todo-app-header-item"></todo-filter>
             <todo-list v-bind:todos="todoItems" v-on:delete="deleteTodo" v-on:edit="editTodo" v-on:toggle-done="toggleDone"></todo-list>
@@ -22,7 +22,7 @@ export default {
     created() {
         this.$store.dispatch({ type: 'loadTodoItems' })
             .catch(err => {
-                // EventBusService.$emit(SHOW_MSG, { txt: 'Cannot Load shop, try refreshing', type: 'danger' });
+                // EventBusService.$emit(SHOW_MSG, { txt: 'Cannot Load todo, try refreshing', type: 'danger' });
                 console.log(err);
             });
     },
@@ -30,18 +30,16 @@ export default {
         todoItems() {
             return this.$store.getters.filterTodoItems;
         },
-        isShopLoading() {
-            return this.$store.getters.isShopLoading
+        isTodoLoading() {
+            return this.$store.getters.isTodoLoading
         }
     },
     methods: {
         deleteTodo(itemId) {
             console.log('deleteTodo');
             // this.$store.commit('removeItem', itemId);
-            // console.log('Removing', this.shopItem);
             this.$store.dispatch({ type: 'removeItem', itemId: itemId })
                 .then(() => {
-                    // this.$router.push('/shop')
                     EventBusService.$emit(SHOW_MSG, { txt: 'Todo Deleted!', type: 'success' });
                 })
         },
@@ -59,7 +57,6 @@ export default {
                 .then((res) => {
                     console.log(res);
                     EventBusService.$emit(SHOW_MSG, { txt: 'Todo Saved!', type: 'success' });
-                    // this.$router.push('/shop')
                     // this.$router.push('/todo');
                 });
         },
@@ -76,7 +73,6 @@ export default {
                 .then((res) => {
                     console.log(res);
                     EventBusService.$emit(SHOW_MSG, { txt: 'Todo Added!', type: 'success' });
-                    // this.$router.push('/shop')
                 });
         },
     },

@@ -1,7 +1,3 @@
-// import UserMsg from './UserMsg.js'
-// import ShoppingCart from './ShoppingCart.js'
-
-
 export default {
     name: 'TodoPreview',
     props: ['todo'],

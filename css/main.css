@@ -43,11 +43,13 @@ footer {
 }
 
 .done {
+    font-weight: normal;
     text-decoration: line-through;
 }
 
 .un-done {
     text-decoration: none;
+    font-weight: bold;
 }
 
 .todo-edit {

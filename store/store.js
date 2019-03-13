@@ -10,7 +10,7 @@ const store = new Vuex.Store({
             text: '',
             type: 'All'
         },
-        isShopLoading: false,
+        isTodoLoading: false,
         user: {
             fullName: 'Puki Ben David',
             activities: [
@@ -59,8 +59,8 @@ const store = new Vuex.Store({
         setfilterBy(state, filterBy) {
             state.filterBy = filterBy;
         },
-        setIsShopLoading(state, { isLoading }) {
-            state.isShopLoading = isLoading;
+        setIsTodoLoading(state, { isLoading }) {
+            state.isTodoLoading = isLoading;
         },
         // changeCount(state, diff) {
         //     state.count += diff;
@@ -89,8 +89,8 @@ const store = new Vuex.Store({
         emptyTodoItem(state) {
             return ItemService.getEmpty();
         },
-        isShopLoading(state) {
-            return state.isShopLoading;
+        isTodoLoading(state) {
+            return state.isTodoLoading;
         },
         // cartTotal(state) {
         //     return state.cartItems.reduce((acc, item)=>acc + item.price, 0)
@@ -105,13 +105,13 @@ const store = new Vuex.Store({
     actions: {
         loadTodoItems(context) {
             // console.log('CONTEXT', context);
-            context.commit({ type: 'setIsShopLoading', isLoading: true })
+            context.commit({ type: 'setIsTodoLoading', isLoading: true })
             return ItemService.query()
                 .then(todoItems => {
                     context.commit({ type: 'setTodoItems', todoItems })
                 })
                 .finally(() => {
-                    context.commit({ type: 'setIsShopLoading', isLoading: false })
+                    context.commit({ type: 'setIsTodoLoading', isLoading: false })
                 })
         },
         loadTodoItem(context, { itemId }) {

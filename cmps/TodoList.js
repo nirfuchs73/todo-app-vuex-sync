@@ -1,5 +1,3 @@
-// import UserMsg from './UserMsg.js'
-// import ShoppingCart from './ShoppingCart.js'
 import TodoPreview from './TodoPreview.js';
 
 export default {
@@ -51,6 +49,5 @@ export default {
     },
     components: {
         TodoPreview
-        // ShoppingCart
     },
 }

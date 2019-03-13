@@ -37,7 +37,6 @@ export default {
             this.$store.dispatch({ type: 'updateItem', item: this.todo })
                 .then((res) => {
                     console.log(res);
-                    // this.$router.push('/shop')
                     EventBusService.$emit(SHOW_MSG, { txt: 'Todo Saved!', type: 'success' });
                     this.$router.push('/todo');
                 });
